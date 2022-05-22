@@ -6,32 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.catapp.R
+import com.example.catapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    lateinit var viewModel : HomeViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val viewModel : HomeViewModel by viewModels()
+    private lateinit var dataBinding : FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        dataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false)
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        val databtn = view.findViewById<Button>(R.id.dataButton)
-        databtn.setOnClickListener {
+        dataBinding.dataButton.setOnClickListener {
             viewModel.getListfromRepo()
         }
         super.onViewCreated(view, savedInstanceState)

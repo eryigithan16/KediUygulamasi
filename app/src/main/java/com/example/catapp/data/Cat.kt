@@ -50,3 +50,7 @@ data class Cat( //ismi catUiState olmalı mı ????
     @PrimaryKey(autoGenerate = true)
     var catId: Int = 0
 }
+
+data class CatsUiState(
+    val catsItems: List<Cat> = listOf()
+)
