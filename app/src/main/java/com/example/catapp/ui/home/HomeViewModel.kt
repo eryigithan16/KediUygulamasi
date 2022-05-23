@@ -3,7 +3,6 @@ package com.example.catapp.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.catapp.data.Cat
 import com.example.catapp.data.CatsUiState
 import com.example.catapp.data.remote.CatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
