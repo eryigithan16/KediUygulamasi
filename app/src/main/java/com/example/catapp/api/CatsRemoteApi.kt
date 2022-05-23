@@ -1,9 +1,6 @@
 package com.example.catapp.api
 
-import com.example.catapp.data.Cat
-import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.Response
+import com.example.catapp.data.model.Cat
 import retrofit2.http.GET
 import retrofit2.http.Header
 

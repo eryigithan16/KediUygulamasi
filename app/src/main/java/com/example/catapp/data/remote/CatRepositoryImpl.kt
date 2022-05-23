@@ -1,6 +1,5 @@
 package com.example.catapp.data.remote
 
-import com.example.catapp.data.Cat
 import javax.inject.Inject
 
 class CatRepositoryImpl

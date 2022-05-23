@@ -1,7 +1,6 @@
 package com.example.catapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catapp.R
-import com.example.catapp.data.Cat
+import com.example.catapp.data.model.Cat
 import com.example.catapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -37,10 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        /*dataBinding.dataButton.setOnClickListener {
-            viewModel.getListfromRepo()
-        }
-         */
+
         catsAdapter = HomeCatsAdapter()
         dataBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(view.context)
@@ -51,11 +45,11 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.cats.collect {
                     catList = it.catsItems
-                    Log.e("!!!!!",catList.toString())
                     catsAdapter.submitList(catList)
                 }
             }
         }
         super.onViewCreated(view, savedInstanceState)
+
     }
 }

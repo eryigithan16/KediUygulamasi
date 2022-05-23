@@ -1,7 +1,6 @@
 package com.example.catapp.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catapp.R
-import com.example.catapp.data.Cat
+import com.example.catapp.data.model.Cat
 import com.example.catapp.databinding.CatsItemBinding
 
 class HomeCatsAdapter : ListAdapter<Cat, HomeCatsAdapter.CatsViewHolder>(HomeCatsDiffCallback()) {

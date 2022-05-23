@@ -1,9 +1,8 @@
 package com.example.catapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.catapp.data.CatsUiState
+import com.example.catapp.data.model.CatsUiState
 import com.example.catapp.data.remote.CatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -22,7 +21,6 @@ class HomeViewModel @Inject constructor (private val repository: CatRepository) 
             _cats.update {
                 it.copy(catsItems = catsItems)
             }
-            Log.e("@@@@",cats.value.catsItems.toString())
         }
     }
 

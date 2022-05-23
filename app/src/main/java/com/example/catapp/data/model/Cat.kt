@@ -1,4 +1,4 @@
-package com.example.catapp.data
+package com.example.catapp.data.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
