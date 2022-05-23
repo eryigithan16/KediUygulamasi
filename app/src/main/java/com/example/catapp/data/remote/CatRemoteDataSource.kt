@@ -17,9 +17,6 @@ import javax.inject.Inject
 class CatRemoteDataSource
 @Inject constructor(private val catsRemoteApi: CatsRemoteApi) {
     suspend fun getCatListDataFromApi() : List<Cat> {
-
         return catsRemoteApi.getDataList(API_KEY)
-    }   //single gelen datayı list<cat> olark burda al return et
-        //return catsRemoteApi.getDataList(Constants.API_KEY) // return yerine bir değişkene atayıp sadeleştir. List<Cat> elde et
-        //return catsRemoteApi.getDataList(API_KEY)
+    }
 }

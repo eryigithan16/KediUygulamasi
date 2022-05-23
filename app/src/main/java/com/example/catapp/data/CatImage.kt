@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class CatImage (
     @SerializedName("url")
-    var url: String
+    var url: String?
 )

@@ -10,7 +10,7 @@ import kotlinx.android.parcel.RawValue
 
 @Parcelize
 @Entity
-data class Cat( //ismi catUiState olmalı mı ????
+data class Cat(
     @ColumnInfo(name = "name")
     @SerializedName("name")
     val catName: String?,
