@@ -9,7 +9,5 @@ class CatLocalDataSourceImpl @Inject constructor(private val catDao: CatDao):Cat
         return catDao.getAllCats()
     }
 
-    override suspend fun insertAllCatsToLocal(vararg cats: Cat): List<Long> {
-        return catDao.insertAll(*cats)
-    }
+    override suspend fun insertAllCatsToLocal(cat: Cat) = catDao.insertToFavorites(cat)
 }

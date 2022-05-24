@@ -11,7 +11,7 @@ import com.example.catapp.R
 import com.example.catapp.data.model.Cat
 import com.example.catapp.databinding.CatsItemBinding
 
-class HomeCatsAdapter : ListAdapter<Cat, HomeCatsAdapter.CatsViewHolder>(HomeCatsDiffCallback()) {
+class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : ListAdapter<Cat, HomeCatsAdapter.CatsViewHolder>(HomeCatsDiffCallback()) {
 
     class CatsViewHolder(var view: CatsItemBinding) : RecyclerView.ViewHolder(view.root) {
 
@@ -24,7 +24,31 @@ class HomeCatsAdapter : ListAdapter<Cat, HomeCatsAdapter.CatsViewHolder>(HomeCat
     }
 
     override fun onBindViewHolder(holder: CatsViewHolder, position: Int) {
-        holder.view.cat = getItem(position)
+        val item = getItem(position)
+        holder.view.cat = item
+        if (item.catIsFavorited == true) {
+            holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_filled_star)
+        }
+        else {
+            holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_empty_star)
+        }
+        holder.view.ivItemAddFavBtn.setOnClickListener {
+            onFavouriteChanged(item.catName,item.catIsFavorited)
+            holder.view.executePendingBindings()
+            if (item.catIsFavorited == false){
+                holder.view.ivItemAddFavBtn.setImageResource(R.drawable.ic_filled_star)
+                holder.view.executePendingBindings()
+            }
+            else if(item.catIsFavorited == true){
+                holder.view.ivItemAddFavBtn.setImageResource(R.drawable.ic_empty_star)
+                holder.view.executePendingBindings()
+            }
+            else if(item.catIsFavorited == null){
+                holder.view.ivItemAddFavBtn.setImageResource(R.drawable.ic_empty_star)
+                holder.view.executePendingBindings()
+            }
+        }
+        holder.view.executePendingBindings()
     }
 }
 

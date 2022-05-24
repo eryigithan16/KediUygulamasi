@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.catapp.data.local.CatLocalRepository
 import com.example.catapp.data.model.Cat
+import com.example.catapp.data.model.CatImage
 import com.example.catapp.data.model.CatsUiState
 import com.example.catapp.data.remote.CatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,17 @@ class HomeViewModel
 @Inject constructor (private val remoteRepository: CatRepository, private val localRepository: CatLocalRepository)
     : ViewModel() {
 
-    private val _cats = MutableStateFlow(CatsUiState())
+
+    private val _cats = MutableStateFlow(CatsUiState(onFavouriteChanged = { id, isFavourited ->
+        val j = CatImage("url")
+        val k = Cat(id,"sdfasdf","asdasd","asd","asdas","asdas","4",
+            j,true)
+        Log.d("home",id+" - "+isFavourited.toString())
+        viewModelScope.launch {
+            localRepository.storeCatsToLocal(k)
+            Log.d("room",localRepository.getAllCatsFromLocal().toString())
+        }
+    }))
     val cats : StateFlow<CatsUiState> = _cats.asStateFlow()
 
     fun getListFromRemoteRepo(){
@@ -29,14 +40,9 @@ class HomeViewModel
         }
     }
 
-    fun saveToRoom(list: List<Cat>){
+    fun saveToRoom(cat: Cat){
         viewModelScope.launch {
-            val listLong = localRepository.storeCatsToLocal(*list.toTypedArray())
-            var i = 0
-            while (i < list.size){
-                list[i].catId = listLong[i].toInt()
-                i = i+1
-            }
+            localRepository.storeCatsToLocal(cat)
         }
     }
 

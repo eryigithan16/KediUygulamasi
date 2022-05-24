@@ -28,8 +28,8 @@ object CatModule {
 
     @Singleton
     @Provides
-    fun remoteDataSourceProvider(catsRemoteApi: CatsRemoteApi) : CatRemoteDataSource{
-        return CatRemoteDataSourceImpl(catsRemoteApi)
+    fun remoteDataSourceProvider(catsRemoteApi: CatsRemoteApi, catLocalRepository: CatLocalRepository) : CatRemoteDataSource{
+        return CatRemoteDataSourceImpl(catsRemoteApi,catLocalRepository)
     }
 
     @Singleton

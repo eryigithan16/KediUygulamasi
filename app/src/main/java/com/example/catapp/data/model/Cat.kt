@@ -52,5 +52,6 @@ data class Cat(
 }
 
 data class CatsUiState(
-    val catsItems: List<Cat> = listOf()
+    val catsItems: List<Cat> = listOf(),
+    val onFavouriteChanged : (String?, Boolean?) -> Unit
 )

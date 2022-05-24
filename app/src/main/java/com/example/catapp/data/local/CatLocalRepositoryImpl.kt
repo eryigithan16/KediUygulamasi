@@ -9,7 +9,5 @@ class CatLocalRepositoryImpl
         return catLocalDataSource.getCatListDataFromLocal()
     }
 
-    override suspend fun storeCatsToLocal(vararg cats: Cat): List<Long> {
-        return catLocalDataSource.insertAllCatsToLocal(*cats)
-    }
+    override suspend fun storeCatsToLocal(cat: Cat) = catLocalDataSource.insertAllCatsToLocal(cat)
 }

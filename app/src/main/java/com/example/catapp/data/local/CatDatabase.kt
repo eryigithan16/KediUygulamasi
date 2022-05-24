@@ -15,23 +15,4 @@ abstract class CatDatabase : RoomDatabase(){
 
     abstract fun catDao() : CatDao
 
-    /*companion object{
-        @Volatile var instance : CatDatabase? = null
-
-        private val lock = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(lock){
-            instance ?: makeDatabase(context).also {
-                instance = it
-            }
-        }
-
-        private fun makeDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext, CatDatabase::class.java, "catdatabase"
-        ).addTypeConverter(ImageTypeConverter())
-            .build()
-    }
-
-     */
-
 }

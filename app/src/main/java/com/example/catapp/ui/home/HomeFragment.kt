@@ -1,6 +1,7 @@
 package com.example.catapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catapp.R
 import com.example.catapp.data.model.Cat
+import com.example.catapp.data.model.CatImage
 import com.example.catapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,7 +25,7 @@ class HomeFragment : Fragment() {
     private val viewModel : HomeViewModel by viewModels()
     private lateinit var dataBinding : FragmentHomeBinding
     lateinit var catsAdapter: HomeCatsAdapter
-    var catList : List<Cat> = listOf()
+    lateinit var catList : List<Cat>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        catsAdapter = HomeCatsAdapter()
+        catsAdapter = HomeCatsAdapter(viewModel.cats.value.onFavouriteChanged)
         dataBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(view.context)
             adapter = catsAdapter
@@ -49,13 +51,19 @@ class HomeFragment : Fragment() {
                     /*viewModel.saveToRoom(catList)
                     viewModel.getListFromLocalRepo()
                     --------bunlar burada mı yazılcak aşşağıda mı--------
-                     */
+
+                    viewModel.saveToRoom(
+                        Cat("Aegean","a","a","a","a","a",
+                        "a", CatImage("a"),true)
+                    )*/
+                    Log.e("aaaaaa","girdi")
+                    viewModel.getListFromLocalRepo()
                     catsAdapter.submitList(catList)
                 }
             }
         }
-        viewModel.saveToRoom(catList)
-        viewModel.getListFromLocalRepo()
+
+
         super.onViewCreated(view, savedInstanceState)
 
     }
