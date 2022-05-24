@@ -27,6 +27,7 @@ class HomeViewModel
         viewModelScope.launch {
             localRepository.storeCatsToLocal(k)
             Log.d("room",localRepository.getAllCatsFromLocal().toString())
+            getListFromRemoteRepo()
         }
     }))
     val cats : StateFlow<CatsUiState> = _cats.asStateFlow()

@@ -27,26 +27,14 @@ class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : Li
         val item = getItem(position)
         holder.view.cat = item
         if (item.catIsFavorited == true) {
-            holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_filled_star)
+            holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
         }
         else {
-            holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_empty_star)
+            holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
         }
         holder.view.ivItemAddFavBtn.setOnClickListener {
             onFavouriteChanged(item.catName,item.catIsFavorited)
             holder.view.executePendingBindings()
-            if (item.catIsFavorited == false){
-                holder.view.ivItemAddFavBtn.setImageResource(R.drawable.ic_filled_star)
-                holder.view.executePendingBindings()
-            }
-            else if(item.catIsFavorited == true){
-                holder.view.ivItemAddFavBtn.setImageResource(R.drawable.ic_empty_star)
-                holder.view.executePendingBindings()
-            }
-            else if(item.catIsFavorited == null){
-                holder.view.ivItemAddFavBtn.setImageResource(R.drawable.ic_empty_star)
-                holder.view.executePendingBindings()
-            }
         }
         holder.view.executePendingBindings()
     }
@@ -54,7 +42,7 @@ class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : Li
 
 class HomeCatsDiffCallback : DiffUtil.ItemCallback<Cat>() {
     override fun areItemsTheSame(oldItem: Cat, newItem: Cat): Boolean {
-        return oldItem.catName == newItem.catName
+        return oldItem.catName == newItem.catName && oldItem.catIsFavorited == newItem.catIsFavorited
     }
 
     override fun areContentsTheSame(oldItem: Cat, newItem: Cat): Boolean {

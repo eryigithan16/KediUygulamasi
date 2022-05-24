@@ -13,8 +13,6 @@ class CatRemoteDataSourceImpl
     override suspend fun getCatListDataFromApi(): List<Cat> {
         val localResponse : List<Cat> = localRepository.getAllCatsFromLocal()
         val remoteResponse : List<Cat> = catsRemoteApi.getDataList(API_KEY)
-        //val list : ArrayList<Breed> = ArrayList()
-        // val difference = remoteResponse.minus(localResponse).toList()
 
         remoteResponse.forEachIndexed { index, element ->
             localResponse.forEachIndexed { index2, element2 ->
@@ -24,11 +22,6 @@ class CatRemoteDataSourceImpl
                 }
             }
         }
-
-        // difference.forEach { it.IsCatliked = false }
-        //list.addAll(localResponse) // isliked true
-        //list.addAll(difference) // is liked false
-
         return remoteResponse
     }
 }

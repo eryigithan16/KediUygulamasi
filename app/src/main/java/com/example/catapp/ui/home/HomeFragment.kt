@@ -1,5 +1,6 @@
 package com.example.catapp.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
         return dataBinding.root
     }
 
+    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         catsAdapter = HomeCatsAdapter(viewModel.cats.value.onFavouriteChanged)
@@ -44,8 +46,8 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.getListFromRemoteRepo()
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.cats.collect {
                     catList = it.catsItems
                     /*viewModel.saveToRoom(catList)
