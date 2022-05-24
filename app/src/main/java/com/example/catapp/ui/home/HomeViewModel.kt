@@ -8,6 +8,7 @@ import com.example.catapp.data.model.Cat
 import com.example.catapp.data.model.CatImage
 import com.example.catapp.data.model.CatsUiState
 import com.example.catapp.data.remote.CatRepository
+import com.example.catapp.domain.FavCatComparisonUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -15,18 +16,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel
-@Inject constructor (private val remoteRepository: CatRepository, private val localRepository: CatLocalRepository)
+@Inject constructor (private val remoteRepository: CatRepository, private val localRepository: CatLocalRepository,
+                     private val favCatComparisonUseCase: FavCatComparisonUseCase)
     : ViewModel() {
 
 
     private val _cats = MutableStateFlow(CatsUiState(onFavouriteChanged = { id, isFavourited ->
-        val j = CatImage("url")
-        val k = Cat(id,"sdfasdf","asdasd","asd","asdas","asdas","4",
-            j,true)
-        Log.d("home",id+" - "+isFavourited.toString())
         viewModelScope.launch {
-            localRepository.storeCatsToLocal(k)
-            Log.d("room",localRepository.getAllCatsFromLocal().toString())
+            selectedCat(cats.value.catsItems, id!!)?.let {
+                localRepository.storeCatsToLocal(it)
+            }
             getListFromRemoteRepo()
         }
     }))
@@ -34,16 +33,11 @@ class HomeViewModel
 
     fun getListFromRemoteRepo(){
         viewModelScope.launch {
-            val catsItems = remoteRepository.getAllCats()
-            _cats.update {
+            //val catsItems = remoteRepository.getAllCats()
+            val catsItems = favCatComparisonUseCase.invoke()
+                _cats.update {
                 it.copy(catsItems = catsItems)
             }
-        }
-    }
-
-    fun saveToRoom(cat: Cat){
-        viewModelScope.launch {
-            localRepository.storeCatsToLocal(cat)
         }
     }
 
@@ -52,6 +46,17 @@ class HomeViewModel
             val cats = localRepository.getAllCatsFromLocal()
             Log.e("@@@@@room",cats.toString())
         }
+    }
+
+    fun selectedCat(catList: List<Cat>, callId: String) : Cat?{
+        var i = 0
+        while (i<catList.size){
+            if (catList[i].catName.equals(callId)){
+                return catList[i]
+            }
+            i++
+        }
+        return null
     }
 
 }

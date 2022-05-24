@@ -50,22 +50,11 @@ class HomeFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.cats.collect {
                     catList = it.catsItems
-                    /*viewModel.saveToRoom(catList)
-                    viewModel.getListFromLocalRepo()
-                    --------bunlar burada mı yazılcak aşşağıda mı--------
-
-                    viewModel.saveToRoom(
-                        Cat("Aegean","a","a","a","a","a",
-                        "a", CatImage("a"),true)
-                    )*/
-                    Log.e("aaaaaa","girdi")
                     viewModel.getListFromLocalRepo()
                     catsAdapter.submitList(catList)
                 }
             }
         }
-
-
         super.onViewCreated(view, savedInstanceState)
 
     }

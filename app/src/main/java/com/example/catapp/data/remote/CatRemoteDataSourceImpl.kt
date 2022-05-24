@@ -8,20 +8,9 @@ import com.example.catapp.data.model.Cat
 import javax.inject.Inject
 
 class CatRemoteDataSourceImpl
-@Inject constructor(private val catsRemoteApi: CatsRemoteApi, private val localRepository: CatLocalRepository) : CatRemoteDataSource
+@Inject constructor(private val catsRemoteApi: CatsRemoteApi) : CatRemoteDataSource
 {
     override suspend fun getCatListDataFromApi(): List<Cat> {
-        val localResponse : List<Cat> = localRepository.getAllCatsFromLocal()
-        val remoteResponse : List<Cat> = catsRemoteApi.getDataList(API_KEY)
-
-        remoteResponse.forEachIndexed { index, element ->
-            localResponse.forEachIndexed { index2, element2 ->
-                if (localResponse[index2].catName.equals(remoteResponse[index].catName)) {
-                    remoteResponse[index].catIsFavorited = true
-
-                }
-            }
-        }
-        return remoteResponse
+        return catsRemoteApi.getDataList(API_KEY)
     }
 }
