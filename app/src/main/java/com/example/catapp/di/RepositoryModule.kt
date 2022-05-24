@@ -2,9 +2,7 @@ package com.example.catapp.di
 
 import com.example.catapp.api.CatsRemoteApi
 import com.example.catapp.common.Constants
-import com.example.catapp.data.remote.CatRemoteDataSource
-import com.example.catapp.data.remote.CatRepository
-import com.example.catapp.data.remote.CatRepositoryImpl
+import com.example.catapp.data.remote.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +19,12 @@ object RepositoryModule {
     @Provides
     fun repoProvider(catRemoteDataSource: CatRemoteDataSource) : CatRepository {
         return CatRepositoryImpl(catRemoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun dataSourceProvider(catsRemoteApi: CatsRemoteApi) : CatRemoteDataSource{
+        return CatRemoteDataSourceImpl(catsRemoteApi)
     }
 
     @Singleton
