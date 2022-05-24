@@ -40,15 +40,22 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(view.context)
             adapter = catsAdapter
         }
-        viewModel.getListfromRepo()
+
+        viewModel.getListFromRemoteRepo()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.cats.collect {
                     catList = it.catsItems
+                    /*viewModel.saveToRoom(catList)
+                    viewModel.getListFromLocalRepo()
+                    --------bunlar burada mı yazılcak aşşağıda mı--------
+                     */
                     catsAdapter.submitList(catList)
                 }
             }
         }
+        viewModel.saveToRoom(catList)
+        viewModel.getListFromLocalRepo()
         super.onViewCreated(view, savedInstanceState)
 
     }
