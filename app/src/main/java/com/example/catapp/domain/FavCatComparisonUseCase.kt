@@ -14,10 +14,10 @@ class FavCatComparisonUseCase
         val localResponse = localRepository.getAllCatsFromLocal()
         val remoteResponse = remoteRepository.getAllCats()
 
-        remoteResponse.forEachIndexed { index, element ->
-            localResponse.forEachIndexed { index2, element2 ->
-                if (localResponse[index2].catName.equals(remoteResponse[index].catName)) {
-                    remoteResponse[index].catIsFavorited = true
+        remoteResponse.forEachIndexed { i, element ->
+            localResponse.forEachIndexed { j, element2 ->
+                if (localResponse[j].catName.equals(remoteResponse[i].catName)) {
+                    remoteResponse[i].catIsFavorited = true
                 }
             }
         }

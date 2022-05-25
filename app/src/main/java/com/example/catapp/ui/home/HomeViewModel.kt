@@ -17,23 +17,19 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel
 @Inject constructor (private val remoteRepository: CatRepository, private val localRepository: CatLocalRepository,
-                     private val favCatComparisonUseCase: FavCatComparisonUseCase)
-    : ViewModel() {
-
+                     private val favCatComparisonUseCase: FavCatComparisonUseCase) : ViewModel() {
 
     private val _cats = MutableStateFlow(CatsUiState(onFavouriteChanged = { id, isFavourited ->
         viewModelScope.launch {
             Log.e("@@@@deneme","$id, ${isFavourited.toString()}")
             selectedCat(cats.value.catsItems, id!!)?.let {
-                if (isFavourited == true){
+                if (isFavourited != true){
                     localRepository.storeCatsToLocal(it)
                 }
-                else if (isFavourited == false){
+                else if (isFavourited == true){
                     localRepository.deleteCat(id)
                 }
             }
-
-
             getListFromRemoteRepo()
         }
     }))
