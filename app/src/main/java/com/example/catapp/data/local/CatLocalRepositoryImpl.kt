@@ -5,13 +5,11 @@ import javax.inject.Inject
 
 class CatLocalRepositoryImpl
     @Inject constructor(private val catLocalDataSource: CatLocalDataSource): CatLocalRepository {
-    override suspend fun getAllCatsFromLocal(): List<Cat> {
-        return catLocalDataSource.getCatListDataFromLocal()
-    }
 
-    override suspend fun storeCatsToLocal(cat: Cat) = catLocalDataSource.insertAllCatsToLocal(cat)
+    override suspend fun getAllCatsFromLocal(): List<Cat> = catLocalDataSource.getCatListDataFromLocal()
 
-    override suspend fun deleteCat(name: String) {
-        return catLocalDataSource.deleteCatFromLocal(name)
-    }
+    override suspend fun storeCatToLocal(cat: Cat) = catLocalDataSource.insertCatToLocal(cat)
+
+    override suspend fun deleteCat(name: String) = catLocalDataSource.deleteCatFromLocal(name)
+
 }

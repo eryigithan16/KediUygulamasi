@@ -5,13 +5,10 @@ import javax.inject.Inject
 
 class CatLocalDataSourceImpl @Inject constructor(private val catDao: CatDao):CatLocalDataSource {
 
-    override suspend fun getCatListDataFromLocal(): List<Cat> {
-        return catDao.getAllCats()
-    }
+    override suspend fun getCatListDataFromLocal(): List<Cat> = catDao.getAllCats()
 
-    override suspend fun insertAllCatsToLocal(cat: Cat) = catDao.insertToFavorites(cat)
+    override suspend fun insertCatToLocal(cat: Cat) = catDao.insertToFavorites(cat)
 
-    override suspend fun deleteCatFromLocal(name: String) {
-        return catDao.deleteFavCat(name)
-    }
+    override suspend fun deleteCatFromLocal(name: String) = catDao.deleteFavCat(name)
+
 }

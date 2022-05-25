@@ -1,6 +1,5 @@
 package com.example.catapp.domain
 
-import com.example.catapp.api.CatsRemoteApi
 import com.example.catapp.data.local.CatLocalRepository
 import com.example.catapp.data.model.Cat
 import com.example.catapp.data.remote.CatRepository

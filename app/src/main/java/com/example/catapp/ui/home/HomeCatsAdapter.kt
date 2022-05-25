@@ -3,7 +3,6 @@ package com.example.catapp.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +12,7 @@ import com.example.catapp.databinding.CatsItemBinding
 
 class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : ListAdapter<Cat, HomeCatsAdapter.CatsViewHolder>(HomeCatsDiffCallback()) {
 
-    class CatsViewHolder(var view: CatsItemBinding) : RecyclerView.ViewHolder(view.root) {
-
-    }
+    class CatsViewHolder(var view: CatsItemBinding) : RecyclerView.ViewHolder(view.root) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsViewHolder {
         val inflater = LayoutInflater.from(parent.context)

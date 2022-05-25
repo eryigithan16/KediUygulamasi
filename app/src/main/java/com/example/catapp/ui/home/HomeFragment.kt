@@ -2,7 +2,6 @@ package com.example.catapp.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catapp.R
 import com.example.catapp.data.model.Cat
-import com.example.catapp.data.model.CatImage
 import com.example.catapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -50,7 +48,6 @@ class HomeFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.cats.collect {
                     catList = it.catsItems
-                    viewModel.getListFromLocalRepo()
                     catsAdapter.submitList(catList)
                 }
             }

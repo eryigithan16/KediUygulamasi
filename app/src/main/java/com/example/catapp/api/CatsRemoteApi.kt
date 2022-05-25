@@ -7,5 +7,5 @@ import retrofit2.http.Header
 interface CatsRemoteApi {
     @GET("v1/breeds")
     suspend fun getDataList(@Header("x-api-key") apiKey : String)
-        : List<Cat> //burası Single<List<Cat>> olmıcak mı, bu şekilde veriler gelir mi
+        : List<Cat>
 }
