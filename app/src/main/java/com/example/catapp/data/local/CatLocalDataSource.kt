@@ -6,4 +6,6 @@ interface CatLocalDataSource {
     suspend fun getCatListDataFromLocal() : List<Cat>
 
     suspend fun insertAllCatsToLocal(cat: Cat)
+
+    suspend fun deleteCatFromLocal(name : String)
 }

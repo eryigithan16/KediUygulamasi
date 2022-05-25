@@ -23,9 +23,17 @@ class HomeViewModel
 
     private val _cats = MutableStateFlow(CatsUiState(onFavouriteChanged = { id, isFavourited ->
         viewModelScope.launch {
+            Log.e("@@@@deneme","$id, ${isFavourited.toString()}")
             selectedCat(cats.value.catsItems, id!!)?.let {
-                localRepository.storeCatsToLocal(it)
+                if (isFavourited == true){
+                    localRepository.storeCatsToLocal(it)
+                }
+                else if (isFavourited == false){
+                    localRepository.deleteCat(id)
+                }
             }
+
+
             getListFromRemoteRepo()
         }
     }))

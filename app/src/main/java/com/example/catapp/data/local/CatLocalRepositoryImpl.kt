@@ -10,4 +10,8 @@ class CatLocalRepositoryImpl
     }
 
     override suspend fun storeCatsToLocal(cat: Cat) = catLocalDataSource.insertAllCatsToLocal(cat)
+
+    override suspend fun deleteCat(name: String) {
+        return catLocalDataSource.deleteCatFromLocal(name)
+    }
 }

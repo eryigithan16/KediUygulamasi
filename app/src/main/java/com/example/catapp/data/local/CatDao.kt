@@ -29,7 +29,7 @@ interface CatDao {
 
     //bir tane de getFavCat yazmalı mıyım? , hata alırsam bunu denicem
 
-    @Query("DELETE FROM cat WHERE catId = :catId")
-    suspend fun deleteFavCat(catId : Int)
+    @Query("DELETE FROM cat WHERE cat.name = :catName")
+    suspend fun deleteFavCat(catName : String) //bunu catıd yerine name yap
 
 }

@@ -10,4 +10,8 @@ class CatLocalDataSourceImpl @Inject constructor(private val catDao: CatDao):Cat
     }
 
     override suspend fun insertAllCatsToLocal(cat: Cat) = catDao.insertToFavorites(cat)
+
+    override suspend fun deleteCatFromLocal(name: String) {
+        return catDao.deleteFavCat(name)
+    }
 }

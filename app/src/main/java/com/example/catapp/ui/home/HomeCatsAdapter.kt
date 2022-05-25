@@ -33,7 +33,8 @@ class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : Li
             holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
         }
         holder.view.ivItemAddFavBtn.setOnClickListener {
-            onFavouriteChanged(item.catName,item.catIsFavorited)
+            paintTheButton(item,holder)
+            onFavouriteChanged(item.catName, item.catIsFavorited)
             holder.view.executePendingBindings()
         }
         holder.view.executePendingBindings()
@@ -49,4 +50,18 @@ class HomeCatsDiffCallback : DiffUtil.ItemCallback<Cat>() {
         return areItemsTheSame(oldItem,newItem)
     }
 
+}
+
+fun paintTheButton(item: Cat, holder: HomeCatsAdapter.CatsViewHolder){
+    if(item.catIsFavorited == true) {
+        item.catIsFavorited = false
+        holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
+        holder.view.executePendingBindings()
+
+    }
+    else if (item.catIsFavorited == false || item.catIsFavorited == null) {
+        item.catIsFavorited = true
+        holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+        holder.view.executePendingBindings()
+    }
 }
