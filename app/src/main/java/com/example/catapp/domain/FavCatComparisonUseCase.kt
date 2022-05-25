@@ -15,7 +15,7 @@ class FavCatComparisonUseCase
 
         remoteResponse.forEachIndexed { i, element ->
             localResponse.forEachIndexed { j, element2 ->
-                if (localResponse[j].catName.equals(remoteResponse[i].catName)) {
+                if (localResponse[j].catName == remoteResponse[i].catName) {
                     remoteResponse[i].catIsFavorited = true
                 }
             }

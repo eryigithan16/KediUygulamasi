@@ -1,5 +1,6 @@
 package com.example.catapp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.catapp.data.local.CatLocalRepository
@@ -21,10 +22,12 @@ class HomeViewModel
         viewModelScope.launch {
             selectedCat(cats.value.catsItems, id!!)?.let {
                 if (isFavourited != true){
+                    Log.e("@@@@store", it.catName.toString())
                     localRepository.storeCatToLocal(it)
                 }
                 else if (isFavourited == true){
                     localRepository.deleteCat(id)
+                    Log.e("@@@@delete", id)
                 }
             }
             getListFromRemoteRepo()
@@ -42,7 +45,7 @@ class HomeViewModel
     }
 
 
-    fun selectedCat(catList: List<Cat>, callId: String) : Cat?{
+    private fun selectedCat(catList: List<Cat>, callId: String) : Cat?{
         var i = 0
         while (i<catList.size){
             if (catList[i].catName.equals(callId)){

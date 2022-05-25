@@ -5,8 +5,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
@@ -47,6 +48,7 @@ data class Cat(
     var catIsFavorited: Boolean?,
 
     ) : Parcelable {
+    @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
     var catId: Int = 0
 }

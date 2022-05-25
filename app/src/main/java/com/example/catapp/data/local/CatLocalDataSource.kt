@@ -7,5 +7,5 @@ interface CatLocalDataSource {
 
     suspend fun insertCatToLocal(cat: Cat)
 
-    suspend fun deleteCatFromLocal(name : String)
+    suspend fun deleteCatFromLocal(id : String)
 }
