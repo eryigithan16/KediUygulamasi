@@ -10,9 +10,16 @@ import com.example.catapp.R
 import com.example.catapp.data.model.Cat
 import com.example.catapp.databinding.CatsItemBinding
 
-class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : ListAdapter<Cat, HomeCatsAdapter.CatsViewHolder>(HomeCatsDiffCallback()) {
+class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit, private val listener: CatClickListener) : ListAdapter<Cat,
+        HomeCatsAdapter.CatsViewHolder>(HomeCatsDiffCallback()) {
 
-    class CatsViewHolder(var view: CatsItemBinding) : RecyclerView.ViewHolder(view.root) {}
+    class CatsViewHolder(var view: CatsItemBinding) : RecyclerView.ViewHolder(view.root) {
+        fun bind(listener: CatClickListener, cat: Cat){
+            view.onItemClickListener = listener
+            view.cat = cat
+            view.executePendingBindings()
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,6 +30,7 @@ class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : Li
     override fun onBindViewHolder(holder: CatsViewHolder, position: Int) {
         val item = getItem(position)
         holder.view.cat = item
+        holder.bind(listener, getItem(position))
         if (item.catIsFavorited == true) {
             holder.view.ivItemAddFavBtn.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
         }
@@ -35,6 +43,7 @@ class HomeCatsAdapter(val onFavouriteChanged : (String?, Boolean?) -> Unit) : Li
         }
         holder.view.executePendingBindings()
     }
+
 }
 
 class HomeCatsDiffCallback : DiffUtil.ItemCallback<Cat>() {

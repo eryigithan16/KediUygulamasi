@@ -1,12 +1,15 @@
 package com.example.catapp.di
 
 import android.content.Context
+import android.view.View
 import androidx.room.Room
 import com.example.catapp.api.CatsRemoteApi
 import com.example.catapp.common.Constants
 import com.example.catapp.common.ImageTypeConverter
 import com.example.catapp.data.local.*
 import com.example.catapp.data.remote.*
+import com.example.catapp.ui.home.CatClickListener
+import com.example.catapp.ui.home.CatClickListenerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +28,8 @@ object CatModule {
     fun remoteRepoProvider(catRemoteDataSource: CatRemoteDataSource) : CatRepository {
         return CatRepositoryImpl(catRemoteDataSource)
     }
+
+
 
     @Singleton
     @Provides

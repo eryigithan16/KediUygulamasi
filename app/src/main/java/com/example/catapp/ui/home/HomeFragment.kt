@@ -11,12 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catapp.R
 import com.example.catapp.data.model.Cat
 import com.example.catapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -25,6 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var dataBinding : FragmentHomeBinding
     lateinit var catsAdapter: HomeCatsAdapter
     lateinit var catList : List<Cat>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +40,7 @@ class HomeFragment : Fragment() {
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        catsAdapter = HomeCatsAdapter(viewModel.cats.value.onFavouriteChanged)
+        catsAdapter = HomeCatsAdapter(viewModel.cats.value.onFavouriteChanged, CatClickListenerImpl(view))
         dataBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(view.context)
             adapter = catsAdapter

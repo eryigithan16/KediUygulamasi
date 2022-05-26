@@ -1,12 +1,17 @@
 package com.example.catapp.common
 
 import android.content.Context
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.navigation.Navigation
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.catapp.R
+import com.example.catapp.data.model.Cat
+import com.example.catapp.ui.home.HomeCatsAdapter
+import com.example.catapp.ui.home.HomeFragmentDirections
 
 
 fun ImageView.getImageFromUrl(url: String?, progressDrawable: CircularProgressDrawable){
